@@ -7,17 +7,17 @@ const Navbar = () => {
     <div className="flex justify-between">
       <button
         className="flex bg-red-300"
-        onClick={() => router.push("/LocalClock")}
+        onClick={() => router.push("/localClock")}
       >
         Clock
       </button>
       <button
         className="flex bg-red-300"
-        onClick={() => router.push("/StopWatch")}
+        onClick={() => router.push("/stopWatch")}
       >
         Stop Watch
       </button>
-      <button className="flex bg-red-300" onClick={() => router.push("/Timer")}>
+      <button className="flex bg-red-300" onClick={() => router.push("/timer")}>
         Timer
       </button>
     </div>
