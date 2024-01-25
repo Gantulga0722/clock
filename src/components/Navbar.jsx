@@ -1,7 +1,7 @@
 import { Router } from "next/router";
 import { useRouter } from "next/router";
 
-export const Navbar = () => {
+const Navbar = () => {
   const router = useRouter();
   return (
     <div className="flex justify-between">
@@ -23,3 +23,4 @@ export const Navbar = () => {
     </div>
   );
 };
+export default Navbar;
