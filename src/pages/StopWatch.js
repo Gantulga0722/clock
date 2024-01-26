@@ -5,7 +5,7 @@ function StopWatch() {
   const [timerOn, setTimerOn] = useState(false);
 
   useEffect(() => {
-    let interval = null;
+    let interval;
 
     if (timerOn) {
       interval = setInterval(() => {
