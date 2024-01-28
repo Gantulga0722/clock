@@ -10,17 +10,44 @@ const Timer = () => {
 
   useEffect(() => {
     let interval;
+    let intervalTime;
+    let intervalMinut;
+    let intervalSecond;
+    const audio = new Audio(
+      "/Alarm-Fast-High-Pitch-A2-www.fesliyanstudios.com.mp3"
+    );
 
     if (timerOn) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 0.00027778);
-        setMinut((prevMin) => prevMin - 0.01666667);
-        setSecond((prevSec) => prevSec - 1);
-      }, 1000);
+      if (second >= 0 || minut >= 0 || time >= 0) {
+        if (time >= 0) {
+          intervalTime = setInterval(() => {
+            setTime((prevTime) => prevTime - 1);
+          }, 3600000);
+        } else {
+          clearInterval(intervalTime);
+        }
+        if (minut >= 0) {
+          intervalMinut = setInterval(() => {
+            setMinut((prevMin) => prevMin - 1);
+          }, 60000);
+        } else {
+          clearInterval(intervalMinut);
+        }
+        if (second >= 0) {
+          intervalSecond = setInterval(() => {
+            setSecond((prevSec) => prevSec - 1);
+          }, 1000);
+        } else {
+          clearInterval(intervalSecond);
+        }
+      } else {
+        function playsong() {
+          audio.play;
+        }
+      }
     } else {
       clearInterval(interval);
     }
-
     return () => clearInterval(interval);
   }, [timerOn]);
 
@@ -32,6 +59,13 @@ const Timer = () => {
   };
   const secondChange = (second) => {
     setSecond(second.target.value);
+  };
+
+  const resetTimer = () => {
+    setTime("00");
+    setMinut("00");
+    setSecond("00");
+    setTimerOn(false);
   };
 
   return (
@@ -65,6 +99,12 @@ const Timer = () => {
             onClick={() => setTimerOn(true)}
           >
             Start time
+          </button>
+          <button
+            className="flex bg-[#1D0D05] p-2 rounded-[12px] text-white"
+            onClick={() => resetTimer()}
+          >
+            Reset
           </button>
           <button
             className="flex bg-[#1D0D05] p-2 rounded-[12px] text-white"
