@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 const Timer = () => {
-  const [time, setTime] = useState(0);
-  const [minut, setMinut] = useState(0);
-  const [second, setSecond] = useState(0);
+  const router = useRouter();
+  const [time, setTime] = useState("00");
+  const [minut, setMinut] = useState("00");
+  const [second, setSecond] = useState("00");
   const [timerOn, setTimerOn] = useState(false);
 
   useEffect(() => {
@@ -11,8 +13,10 @@ const Timer = () => {
 
     if (timerOn) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
-      }, 1);
+        setTime((prevTime) => prevTime - 0.00027778);
+        setMinut((prevMin) => prevMin - 0.01666667);
+        setSecond((prevSec) => prevSec - 1);
+      }, 1000);
     } else {
       clearInterval(interval);
     }
@@ -20,19 +24,15 @@ const Timer = () => {
     return () => clearInterval(interval);
   }, [timerOn]);
 
-  const timeChange = (event) => {
-    setTime(event.target.value);
+  const timeChange = (time) => {
+    setTime(time.target.value);
   };
-  const minutChange = (event) => {
-    setMinut(event.target.value);
+  const minutChange = (minut) => {
+    setMinut(minut.target.value);
   };
-  const secondChange = (event) => {
-    setSecond(event.target.value);
+  const secondChange = (second) => {
+    setSecond(second.target.value);
   };
-
-  const seconds = Math.floor(time / 1000) % 60;
-  const minutes = Math.floor(time / (1000 * 60)) % 60;
-  const hours = Math.floor(time / (1000 * 60 * 60)) % 24;
 
   return (
     <div className="flex justify-center items-center w-[1440px] mx-auto h-[100vh] bg-[url('/clock-img.png')] bg-cover bg-center">
@@ -40,21 +40,21 @@ const Timer = () => {
         <div className="flex w-[500px] h-[200px] border-2 rounded-[10px] items-center">
           <input
             type="number"
-            value={hours.toString().padStart(2, "0")}
+            value={time}
             onChange={timeChange}
-            className=" flex justify-center items-center text-center text-[50px] font-medium  w-1/3"
+            className=" flex justify-center items-center text-center text-[50px] font-bold  w-1/3"
           />{" "}
           <span className="text-[50px]"> : </span>
           <input
             type="number"
-            value={minutes.toString().padStart(2, "0")}
+            value={minut}
             onChange={minutChange}
             className=" flex justify-center items-center text-center text-[50px] font-bold w-1/3"
           />{" "}
           <span className="text-[50px]"> : </span>
           <input
             type="number"
-            value={seconds.toString().padStart(2, "0")}
+            value={second}
             onChange={secondChange}
             className=" flex justify-center items-center text-center text-[50px] font-bold  w-1/3"
           />
@@ -65,6 +65,12 @@ const Timer = () => {
             onClick={() => setTimerOn(true)}
           >
             Start time
+          </button>
+          <button
+            className="flex bg-[#1D0D05] p-2 rounded-[12px] text-white"
+            onClick={() => router.push("/home")}
+          >
+            Home
           </button>
         </div>
       </div>

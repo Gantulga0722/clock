@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 function StopWatch() {
+  const router = useRouter();
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
 
@@ -9,8 +11,8 @@ function StopWatch() {
 
     if (timerOn) {
       interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 5);
-      }, 2);
+        setTime((prevTime) => prevTime + 4);
+      }, 1);
     } else {
       clearInterval(interval);
     }
@@ -53,6 +55,12 @@ function StopWatch() {
             onClick={() => setTime(0)}
           >
             Reset
+          </button>
+          <button
+            className="flex bg-[#1D0D05] p-2 rounded-[12px] text-white"
+            onClick={() => router.push("/home")}
+          >
+            Home
           </button>
         </div>
       </div>
